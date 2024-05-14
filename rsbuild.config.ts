@@ -11,6 +11,5 @@ export default defineConfig({
 
   html: {
     title: 'Lesta games ship gallery',
-    template: './public/index.html',
   },
 });
