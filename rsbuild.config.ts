@@ -8,6 +8,7 @@ export default defineConfig({
       root: 'build',
     },
   },
+
   html: {
     title: 'Lesta games ship gallery',
     template: './public/index.html',
