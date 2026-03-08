@@ -1,4 +1,7 @@
-export const BASE_URL = 'https://vortex.korabli.su/api/graphql/glossary/';
+const REMOTE_URL = "https://vortex.korabli.su/api/graphql/glossary/";
+
+export const BASE_URL =
+  process.env.NODE_ENV === "production" ? "/api/graphql" : REMOTE_URL;
 
 export const QUARY_ALL_VEHICLES = `query AllVehicles($languageCode: String = "ru", $filteredIds: [String]) {
   vehicles(lang: $languageCode, vehicleIds: $filteredIds) {
