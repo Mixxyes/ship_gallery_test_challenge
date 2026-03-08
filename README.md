@@ -4,7 +4,7 @@ Test task from hh.ru
 
 ## Links
 
-- Live Site URL: [Ship gallery](https://ship-gallery-bychewbakka.vercel.app/)
+- Live Site URL: [Ship gallery](https://ship-gallery-test-challenge.vercel.app)
 
 ## Built with
 
