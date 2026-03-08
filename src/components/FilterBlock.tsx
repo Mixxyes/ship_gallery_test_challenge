@@ -1,25 +1,36 @@
-import React, { useEffect, useState } from 'react';
-import { Box, TextField, Autocomplete, Rating, Typography } from '@mui/material';
-import { BASE_URL, QUARY_ALL_NATIONS, QUARY_ALL_TYPES } from '../utils/quaries';
-import { filterSetType, nationType, vehicleClassType } from '../types';
+import React, { useEffect, useState } from "react";
+import {
+  Box,
+  TextField,
+  Autocomplete,
+  Rating,
+  Typography,
+} from "@mui/material";
+import { BASE_URL, QUARY_ALL_NATIONS, QUARY_ALL_TYPES } from "../utils/quaries";
+import { filterSetType, nationType, vehicleClassType } from "../types";
 
 interface FilterBlockProps {
   filter: filterSetType;
-  onFilterChangeHandler: any;
+  onFilterChangeHandler: (next: filterSetType) => void;
 }
 
-export const FilterBlock: React.FC<FilterBlockProps> = ({ filter, onFilterChangeHandler }) => {
-  const [nations, setNations] = useState([]);
-  const [vehicleClasses, setVehicleClasses] = useState([]);
+export const FilterBlock: React.FC<FilterBlockProps> = ({
+  filter,
+  onFilterChangeHandler,
+}) => {
+  const [nations, setNations] = useState<nationType[]>([]);
+  const [vehicleClasses, setVehicleClasses] = useState<vehicleClassType[]>([]);
 
   const nationOptions = nations.map((nation: nationType) => nation.title);
-  const classOptions = vehicleClasses.map((vehicleClass: vehicleClassType) => vehicleClass.title);
+  const classOptions = vehicleClasses.map(
+    (vehicleClass: vehicleClassType) => vehicleClass.title,
+  );
 
   useEffect(() => {
     fetch(BASE_URL, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-type': 'application/json',
+        "Content-type": "application/json",
       },
       body: JSON.stringify({ query: QUARY_ALL_NATIONS }),
     })
@@ -31,9 +42,9 @@ export const FilterBlock: React.FC<FilterBlockProps> = ({ filter, onFilterChange
       });
 
     fetch(BASE_URL, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-type': 'application/json',
+        "Content-type": "application/json",
       },
       body: JSON.stringify({ query: QUARY_ALL_TYPES }),
     })
@@ -46,14 +57,14 @@ export const FilterBlock: React.FC<FilterBlockProps> = ({ filter, onFilterChange
   }, []);
 
   return (
-    <Box sx={{ mt: 6, mr: 'auto', ml: 8, maxWidth: 360 }}>
+    <Box sx={{ mt: 6, mr: "auto", ml: 8, maxWidth: 360 }}>
       <Autocomplete
         disablePortal
         options={nationOptions}
         sx={{ width: 330, mt: 1 }}
         renderInput={(params) => <TextField {...params} label="Страна" />}
         value={filter.nation ? filter.nation : null}
-        onChange={(event: any, newValue: string | null) => {
+        onChange={(_, newValue: string | null) => {
           newValue
             ? onFilterChangeHandler({ ...filter, nation: newValue })
             : onFilterChangeHandler({ ...filter, nation: null });
@@ -65,7 +76,7 @@ export const FilterBlock: React.FC<FilterBlockProps> = ({ filter, onFilterChange
         sx={{ width: 330, mt: 1 }}
         renderInput={(params) => <TextField {...params} label="Класс судна" />}
         value={filter.vehicleClass ? filter.vehicleClass : null}
-        onChange={(event: any, newValue: string | null) => {
+        onChange={(_, newValue: string | null) => {
           newValue
             ? onFilterChangeHandler({ ...filter, vehicleClass: newValue })
             : onFilterChangeHandler({ ...filter, vehicleClass: null });
@@ -77,7 +88,7 @@ export const FilterBlock: React.FC<FilterBlockProps> = ({ filter, onFilterChange
         size="large"
         max={10}
         value={filter.level}
-        onChange={(e, newValue: number | null) => {
+        onChange={(_, newValue: number | null) => {
           newValue
             ? onFilterChangeHandler({ ...filter, level: newValue })
             : onFilterChangeHandler({ ...filter, level: 0 });
